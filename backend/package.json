@@ -1,0 +1,22 @@
+{
+  "name": "crovion-backend",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "description": "Content + leads service for the Crovion site. Runs on its own port, separate from Next.",
+  "scripts": {
+    "dev": "node --watch src/server.ts",
+    "start": "node src/server.ts",
+    "reset": "node src/reset.ts"
+  },
+  "dependencies": {
+    "cors": "^2.8.5",
+    "express": "^5.1.0"
+  },
+  "devDependencies": {
+    "@types/cors": "^2.8.19",
+    "@types/express": "^5.0.3",
+    "@types/node": "^24.6.0",
+    "typescript": "^5.9.3"
+  }
+}

@@ -1,0 +1,289 @@
+@import "tailwindcss";
+
+@theme {
+  /* ── Light Iridescent Palette ──
+     The ground is off-white paper; the purple stays as ink and accent rather
+     than as glow. Two rules make the inversion work:
+
+     1. Text purples are *darker* than the fills. #8b5cf6 on near-white is about
+        3:1 — fine for a 100px display serif, not for a 10px tracked label. The
+        -ink variants below are the ones to use on type.
+     2. Nothing here emits any more. On black a token could be a light source;
+        on white the same value is just a pale wash, so the accents earn their
+        presence through saturation instead of brightness. */
+  --color-brand-bg: #F5F3F2;
+  --color-brand-bg-warm: #EFEDEC;
+  --color-brand-surface: #FFFFFF;
+  --color-brand-text: #14131A;
+  --color-brand-text-secondary: #55525F;
+  /* 5.3:1 on the ground and 4.9:1 on the darkest scrim. The obvious inversion of
+     the old #666680 lands around 3:1 — fine as a large-text grey, but every use
+     of this token is a 9–10 px letter-spaced uppercase label, which is the case
+     that needs the contrast most. */
+  --color-brand-muted: #666372;
+  --color-brand-accent: #6D4AFF;
+  --color-brand-accent-hover: #5B3FD6;
+  --color-brand-purple: #6D28D9;
+  --color-brand-purple-dark: #4c1d95;
+  --color-brand-purple-soft: #7C5CE0;
+  --color-brand-glow: #8B5CF6;
+  --color-brand-indigo: #4F46E5;
+  --color-brand-blue: #06b6d4;
+  --color-brand-pink: #ec4899;
+  --color-brand-gold: #fbbf24;
+  --color-brand-sphere-violet: #a78bfa;
+  --color-brand-sphere-purple: #7c3aed;
+  --color-brand-sphere-indigo: #6366f1;
+
+  /* ── Font Families ── */
+  --font-sans: "Outfit", system-ui, -apple-system, sans-serif;
+  --font-serif: "DM Serif Display", "Playfair Display", Georgia, serif;
+
+  /* ── Spacing ── */
+  --section-gap: 8rem;
+}
+
+/* ── Base ── */
+:root {
+  background-color: var(--color-brand-bg);
+  color: var(--color-brand-text);
+  color-scheme: light;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  overflow-x: hidden;
+  background-color: var(--color-brand-bg);
+}
+
+::selection {
+  background-color: rgba(109, 74, 255, 0.22);
+  color: #14131A;
+}
+
+/* ── Custom Scrollbar ── */
+::-webkit-scrollbar {
+  width: 4px;
+}
+
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+::-webkit-scrollbar-thumb {
+  background: rgba(109, 74, 255, 0.35);
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: rgba(109, 74, 255, 0.55);
+}
+
+/* ── Lenis Smooth Scroll ── */
+html.lenis,
+html.lenis body {
+  height: auto;
+}
+
+.lenis.lenis-smooth {
+  scroll-behavior: auto !important;
+}
+
+.lenis.lenis-smooth [data-lenis-prevent] {
+  overscroll-behavior: contain;
+}
+
+.lenis.lenis-stopped {
+  overflow: hidden;
+}
+
+.lenis.lenis-smooth iframe {
+  pointer-events: none;
+}
+
+/* ── Keyframe Animations ── */
+@keyframes pulse-glow {
+  0%,
+  100% {
+    opacity: 0.4;
+    transform: scale(1);
+  }
+  50% {
+    opacity: 0.7;
+    transform: scale(1.05);
+  }
+}
+
+@keyframes float-gentle {
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-12px);
+  }
+}
+
+@keyframes shimmer {
+  0% {
+    background-position: -200% 0;
+  }
+  100% {
+    background-position: 200% 0;
+  }
+}
+
+@keyframes reveal-up {
+  0% {
+    clip-path: inset(100% 0 0 0);
+    transform: translateY(30px);
+  }
+  100% {
+    clip-path: inset(0 0 0 0);
+    transform: translateY(0);
+  }
+}
+
+@keyframes rotate-border {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
+@keyframes fade-in-up {
+  0% {
+    opacity: 0;
+    transform: translateY(40px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* ── Utility Classes ── */
+/* Frosted panels, inverted.
+   A translucent *white* fill over a dark page is what made these read as glass;
+   over a light page it is invisible, and the white hairline borders disappear
+   with it. So the fills go up and the borders become ink at low alpha — the
+   panel is now separated from the ground by edge contrast rather than by being
+   lighter than it. */
+.glass {
+  background: rgba(255, 255, 255, 0.5);
+  backdrop-filter: blur(20px) saturate(1.5);
+  -webkit-backdrop-filter: blur(20px) saturate(1.5);
+  border: 1px solid rgba(20, 19, 26, 0.07);
+}
+
+.glass-strong {
+  background: rgba(255, 255, 255, 0.7);
+  backdrop-filter: blur(40px) saturate(1.8);
+  -webkit-backdrop-filter: blur(40px) saturate(1.8);
+  border: 1px solid rgba(20, 19, 26, 0.1);
+}
+
+.glass-dark {
+  background: rgba(255, 255, 255, 0.82);
+  backdrop-filter: blur(20px) saturate(1.5);
+  -webkit-backdrop-filter: blur(20px) saturate(1.5);
+  border: 1px solid rgba(109, 74, 255, 0.12);
+}
+
+.text-gradient {
+  background: linear-gradient(135deg, #14131A 0%, #6D4AFF 50%, #14131A 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+/* ── Loading Screen ── */
+.loading-letter {
+  display: inline-block;
+  opacity: 0;
+  transform: translateY(40px);
+}
+
+.loading-progress-bar {
+  height: 2px;
+  background: linear-gradient(90deg, #6D4AFF, #8B5CF6, #6D4AFF);
+  transform-origin: left;
+  transform: scaleX(0);
+}
+
+/* ── Hover underline ── */
+.hover-underline {
+  position: relative;
+}
+
+.hover-underline::after {
+  content: "";
+  position: absolute;
+  bottom: -2px;
+  left: 0;
+  width: 100%;
+  height: 1px;
+  background: currentColor;
+  transform: scaleX(0);
+  transform-origin: right;
+  transition: transform 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.hover-underline:hover::after {
+  transform: scaleX(1);
+  transform-origin: left;
+}
+
+/* ── Diagonal line decoration (Bravis-style) ── */
+.bravis-line {
+  position: absolute;
+  width: 1px;
+  background: rgba(0, 0, 0, 0.08);
+  transform-origin: top left;
+}
+
+/* ── The loading meter ──
+   Indeterminate on purpose: there is no honest number to show. The readiness
+   gate in `lib/intro/director.ts` frequently satisfies inside a few hundred
+   milliseconds, so a real counter would snap to 100 and then wait — and a number
+   that finishes and then waits is worse than no number at all.
+
+   A CSS keyframe rather than a JS tween, and that is load-bearing. This runs off
+   the compositor and needs no `requestAnimationFrame`, so it keeps moving
+   through exactly the stretch the curtain exists to cover: shader compilation
+   and first paint on two WebGL contexts, when the main thread is least able to
+   service a tween. Bravis's spinner is a `0.6s linear infinite` keyframe for the
+   same reason — it is already spinning before their render loop exists.
+
+   Honours reduced motion by holding still rather than by disappearing: the
+   element is still the page's only signal that something is happening. */
+@keyframes loading-sweep {
+  from {
+    transform: translateX(-100%);
+  }
+  to {
+    transform: translateX(300%);
+  }
+}
+
+.loading-meter {
+  animation: loading-sweep 1.15s cubic-bezier(0.65, 0, 0.35, 1) infinite;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .loading-meter {
+    animation: none;
+    width: 100%;
+    opacity: 0.55;
+  }
+}
